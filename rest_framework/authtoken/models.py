@@ -1,5 +1,7 @@
 import binascii
 import os
+import hmac
+import hashlib
 
 from django.conf import settings
 from django.db import models
@@ -33,7 +35,8 @@ class Token(models.Model):
         return super().save(*args, **kwargs)
 
     def generate_key(self):
-        return binascii.hexlify(os.urandom(20)).decode()
+        # return binascii.hexlify(os.urandom(20)).decode()
+        return hmac.new(str(settings.SECRET_KEY).encode(), os.urandom(20), hashlib.sha3_512).hexdigest()
 
     def __str__(self):
         return self.key
