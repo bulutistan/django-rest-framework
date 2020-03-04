@@ -12,7 +12,7 @@ class Token(models.Model):
     """
     The default authorization token model.
     """
-    key = models.CharField(_("Key"), max_length=40, primary_key=True)
+    key = models.CharField(_("Key"), max_length=130, primary_key=True)
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, related_name='auth_token',
         on_delete=models.CASCADE, verbose_name=_("User")
