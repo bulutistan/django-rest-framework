@@ -13,11 +13,22 @@ class Token(models.Model):
     The default authorization token model.
     """
     key = models.CharField(_("Key"), max_length=130, primary_key=True)
-    user = models.OneToOneField(
+    # user = models.OneToOneField(
+    #     settings.AUTH_USER_MODEL, related_name='auth_token',
+    #     on_delete=models.CASCADE, verbose_name=_("User")
+    # )
+
+    """
+    Cause multi login for one user.
+    On delete record with key field for logout...
+    WARNING! Make workers garbage services work on frequently for can't log outed sessions.
+    """
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name='auth_token',
-        on_delete=models.CASCADE, verbose_name=_("User")
+        on_delete=models.CASCADE
     )
     created = models.DateTimeField(_("Created"), auto_now_add=True)
+    session = models.CharField(max_length=2048, verbose_name="Session", null=True)
 
     class Meta:
         # Work around for a bug in Django:
