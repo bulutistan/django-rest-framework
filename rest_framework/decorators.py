@@ -231,3 +231,29 @@ class MethodMapper(dict):
 
     def trace(self, func):
         return self._map('trace', func)
+
+    """
+    Added more request metod.
+    Warning! this methods working only Bulutistan django fork on github/bulutistan/django repositories.
+    https://github.com/bulutistan/django/releases/tag/2.2.11-rev.1
+    """
+    def link(self, func):
+        return self._map('options', func)
+
+    def unlink(self, func):
+        return self._map('options', func)
+
+    def purge(self, func):
+        return self._map('options', func)
+
+    def lock(self, func):
+        return self._map('options', func)
+
+    def unlock(self, func):
+        return self._map('options', func)
+
+    def propfind(self, func):
+        return self._map('options', func)
+
+    def view(self, func):
+        return self._map('options', func)
